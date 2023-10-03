@@ -26,8 +26,9 @@ function LoginForm() {
             const token = response.data.Value;
             setSuccess('Login realizado com sucesso');
             setError(null);
+            localStorage.setItem('token', token)
             setTimeout(() => {
-                navigate(`/welcome/${token}`);
+                navigate('/welcome');
             }, 1000);
         } catch (error) {
             console.error('Erro na chamada da API:', error);

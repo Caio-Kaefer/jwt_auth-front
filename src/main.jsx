@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import LoginPage from './pages/loginPage';
-import Welcome from './pages/Welcome';
+import WelcomePage from './pages/WelcomePage';
 import SignUpPage from './pages/SignUpPage';
 
 const router = createBrowserRouter([
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
     element: <LoginPage/>,
   },
   {
-    path: "/welcome/:token",
-    element: <Welcome/>,
+    path: "/welcome",
+    element: <WelcomePage/>
   },
   {
     path: "/signup",
