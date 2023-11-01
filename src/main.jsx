@@ -9,6 +9,7 @@ import {
 import LoginPage from './pages/loginPage';
 import WelcomePage from './pages/WelcomePage';
 import SignUpPage from './pages/SignUpPage';
+import DrinkDetails from './pages/DrinkDetails';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUpPage/>,
+  },
+  {
+    path: "/welcome/details/:id",
+    element: <DrinkDetails/>,
   },
 ]);
 const theme = createTheme();

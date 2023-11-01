@@ -5,13 +5,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 function DrinkCard({ drink }) { // Use destructuring to access the `drink` prop
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 200 }}>
         <CardMedia
-          sx={{ height: 400 }}
+          sx={{ height: 300 }}
           image={drink.strDrinkThumb}
           title={drink.strDrink}
         />
@@ -24,8 +25,7 @@ function DrinkCard({ drink }) { // Use destructuring to access the `drink` prop
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          <Link to={`details/${drink.idDrink}`}>Saiba mais </Link>
         </CardActions>
       </Card>
     </div>
