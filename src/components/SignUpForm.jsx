@@ -9,6 +9,7 @@ function SignUpForm() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
+        age: 0,
         name: '',
         password: '',
         cpassword: '',
@@ -31,14 +32,12 @@ function SignUpForm() {
             return;
         }
 
-
         try {
-
             await axios.post('https://localhost:7062/api/Users/cadastro', formData);
             setSuccess('Cadastro realizado com sucesso');
             setError('');
             setTimeout(() => {
-                navigate('/'); // Redireciona para a página de login após o cadastro
+                navigate('/');
             }, 1000);
         } catch (error) {
             console.error('Erro na chamada da API:', error);
@@ -66,6 +65,15 @@ function SignUpForm() {
                     label="Nome"
                     placeholder="Nome"
                     value={formData.name}
+                    onChange={handleChange}
+                />
+                <TextField
+                    variant="filled"
+                    type="number"
+                    name="age"
+                    label="Age"
+                    placeholder="Age"
+                    value={formData.age}
                     onChange={handleChange}
                 />
                 <TextField
