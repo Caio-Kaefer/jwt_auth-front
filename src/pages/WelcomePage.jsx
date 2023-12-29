@@ -9,7 +9,7 @@ function WelcomePage() {
   const token  = localStorage.getItem('token');
   const decoded = jwt_decode(token);
   const name = decoded.nome;
-  const age = decoded.age
+  const age = decoded.age;
   console.log(age)
   return (
     <div>

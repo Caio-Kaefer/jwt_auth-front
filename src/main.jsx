@@ -10,6 +10,7 @@ import LoginPage from './pages/loginPage';
 import WelcomePage from './pages/WelcomePage';
 import SignUpPage from './pages/SignUpPage';
 import DrinkDetails from './pages/DrinkDetails';
+import Favorites from './pages/Favorites';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/welcome/details/:id",
     element: <DrinkDetails/>,
+  },
+  {
+    path: "/favorites",
+    element: <Favorites/>,
   },
 ]);
 const theme = createTheme();

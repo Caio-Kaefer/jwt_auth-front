@@ -57,6 +57,14 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.favorite{
+  width: 100px;
+  background-color: rgb(209, 65, 65);
+  color: white;
+  font-size: small;
+
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
