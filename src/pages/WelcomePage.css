@@ -1,0 +1,35 @@
+/* WelcomePage.css */
+
+/* Estilo para o contêiner principal */
+.welcome-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para o título principal */
+  .welcome-page h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  /* Estilo para os links */
+  .welcome-page a {
+    display: inline-block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Estilo para a mensagem de aviso */
+  .welcome-page p {
+    color: #ff0000;
+    font-size: 1.2em;
+  }
+  

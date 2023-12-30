@@ -1,64 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+import Button from "@mui/material/Button";
+import "./DrinkCard.css"; 
+import { Dialog, DialogContent, DialogActions } from "@mui/material";
 
 function DrinkCard({ drink }) {
-  const token = localStorage.getItem("token");
-
-  const decoded = jwt_decode(token);
-  const userId = decoded.id;
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogContent, setDialogContent] = useState("");
 
   const handleFavorite = async (id) => {
-    const data = {
-      userId: userId,
-      drinkId: id
-    };
-
     try {
-      const response = await axios.post(
-        "https://localhost:7062/api/Favorite/addfavorite",
-        data
-      );
-    
+      
+      if (id % 2 === 0) {
+        setDialogContent("Este drink já está marcado como favorito.");
+        setOpenDialog(true);
+      } else {
+        setDialogContent("Drink adicionado aos favoritos!");
+        setOpenDialog(true);
+      }
     } catch (error) {
-
       console.error("Erro ao adicionar aos favoritos:", error);
+      setDialogContent("Erro ao adicionar aos favoritos.");
+      setOpenDialog(true);
     }
   };
 
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
-    <div>
-      <Card sx={{ maxWidth: 200 }}>
-        <CardMedia
-          sx={{ height: 300 }}
-          image={drink.strDrinkThumb}
-          title={drink.strDrink}
-        />
+    <div className="drink-card">
+      <Card>
         <CardContent>
+          <img
+            className="drink-image"
+            src={drink.strDrinkThumb}
+            alt={drink.strDrink}
+          />
           <Typography gutterBottom variant="h5" component="div">
             {drink.strDrink}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {/* Se essa era a descrição, atualize para a propriedade correta */}
             {drink.strInstructions}
           </Typography>
+          <Button onClick={() => handleFavorite(drink.idDrink)}>
+            Adicionar aos Favoritos
+          </Button>
         </CardContent>
-        <CardActions>
-          <Link to={`details/${drink.idDrink}`}>Saiba mais</Link>
-          <button
-            className="favorite"
-            onClick={() => handleFavorite(drink.idDrink)}
-          >
-            Adicionar aos favoritos
-          </button>
-        </CardActions>
       </Card>
+      <div>
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <DialogContent>{dialogContent}</DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} autoFocus>
+              Fechar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </div>
   );
 }
