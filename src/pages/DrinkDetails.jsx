@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function DrinkDetails() {
   const { id } = useParams();
-  const [apiData, setApiData] = useState([]);
+  const [apiData, setApiData] = useState(null);
 
   useEffect(() => {
     axios
@@ -16,15 +15,60 @@ function DrinkDetails() {
       .catch((error) => {
         console.error("Erro ao obter dados", error);
       });
-  }, [id]); 
+  }, [id]);
+
+  if (!apiData) {
+    return <div>Loading...</div>;
+  }
+
+  const {
+    strDrink,
+    strDrinkThumb,
+    strCategory,
+    strAlcoholic,
+    strGlass,
+    strInstructions,
+    strIngredient1,
+    strIngredient2,
+    strIngredient3,
+    strIngredient4,
+    strIngredient5,
+    strIngredient6,
+    strIngredient7,
+    strIngredient8,
+    strIngredient9,
+    strIngredient10,
+  } = apiData;
+
+  const ingredients = [
+    strIngredient1,
+    strIngredient2,
+    strIngredient3,
+    strIngredient4,
+    strIngredient5,
+    strIngredient6,
+    strIngredient7,
+    strIngredient8,
+    strIngredient9,
+    strIngredient10,
+  ].filter(Boolean);
 
   return (
-    <div>
-       <h1>{apiData.strDrink}</h1>
-       <img src={apiData.strDrinkThumb} alt="Drink Image" />
-       <p>Category: {apiData.strCategory}</p>
-       {apiData.strAlcoholic == "Alcoholic" ? <p>Alcoholic</p> : <p>Not Alcoholic</p>}
-       <p>Instructions: {apiData.strInstructions}</p>
+    <div style={{ textAlign: 'center' }}>
+      <h1>{strDrink}</h1>
+      <img src={strDrinkThumb} alt="Drink" style={{ width: '500px', borderRadius: '8px' }} />
+      <p><strong>Category:</strong> {strCategory}</p>
+      <p><strong>Type:</strong> {strAlcoholic === 'Alcoholic' ? 'Alcoholic' : 'Non-Alcoholic'}</p>
+      <p><strong>Glass:</strong> {strGlass}</p>
+      <p><strong>Instructions:</strong> {strInstructions}</p>
+      <div style={{ marginTop: '20px' }}>
+        <h3>Ingredients:</h3>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

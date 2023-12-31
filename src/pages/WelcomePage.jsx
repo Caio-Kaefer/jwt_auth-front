@@ -14,7 +14,7 @@ function WelcomePage() {
   return (
     <div className="welcome-page">
       <h1>Welcome {name}</h1>
-      <Link to="/favorites">Acessar Favoritos</Link>
+      <Link to="/favorites">Favorites</Link>
       <div>
         {age >= 18 ? (
           <List />

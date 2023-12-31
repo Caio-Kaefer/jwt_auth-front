@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
-import StarIcon from "@mui/icons-material/Star";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 function DrinkCard({ drink }) {
   const token = localStorage.getItem("token");
   const decoded = jwt_decode(token);
   const userId = decoded.id;
-  const [clicked, setClicked] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogContent, setDialogContent] = useState("");
 
@@ -30,12 +23,11 @@ function DrinkCard({ drink }) {
           drinkId: id,
         }
       );
-      // Se a requisição for bem-sucedida, atualize o estado do ícone
-      setClicked(!clicked);
+      setDialogContent("Drink adicionado aos favoritos!");
+      setOpenDialog(true);
     } catch (error) {
       console.error("Erro ao adicionar aos favoritos:", error);
       if (error.response && error.response.status === 400) {
-        // Se for um erro de bad request (status 400), exibe o diálogo com a mensagem de erro
         setDialogContent("Este drink já está marcado como favorito.");
         setOpenDialog(true);
       }
@@ -47,39 +39,18 @@ function DrinkCard({ drink }) {
   };
 
   return (
-    <div style={{ margin: "10px" }}>
-      <Card sx={{ maxWidth: 200 }}>
-        <CardMedia
-          sx={{ height: 300 }}
-          image={drink.strDrinkThumb}
-          title={drink.strDrink}
-        />
-        <CardContent style={{ paddingBottom: "16px" }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {drink.strDrink}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {drink.strInstructions}
-          </Typography>
-        </CardContent>
-        <CardActions
-          style={{
-            paddingTop: "0",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link to={`/details/${drink.idDrink}`}>Saiba mais</Link>
-          <Button onClick={() => handleFavorite(drink.idDrink)}>
-            Adicionar aos Favoritos
-          </Button>
-        </CardActions>
-      </Card>
+    <div style={{ border: "1px solid #ddd", borderRadius: "8px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", width: "200px" }}>
+      <img src={drink.strDrinkThumb} alt={drink.strDrink} style={{ width: "100%", height: "auto", borderRadius: "8px 8px 0 0" }} />
+      <div style={{ padding: "10px" }}>
+        <p style={{ margin: "0", fontSize: "16px", fontWeight: "bold" }}>{drink.strDrink}</p>
+        <Link to={`/details/${drink.idDrink}`} style={{ textDecoration: "none", color: "#007bff", display: "block", marginTop: "5px", marginBottom: "10px" }}>more info</Link>
+        <Button variant="contained" onClick={() => handleFavorite(drink.idDrink)} fullWidth style={{ backgroundColor: "#007bff", color: "#fff" }}>Add to Faorites</Button>
+      </div>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogContent>{dialogContent}</DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} autoFocus>
-            Fechar
+            Close
           </Button>
         </DialogActions>
       </Dialog>
